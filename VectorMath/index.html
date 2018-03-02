@@ -1,0 +1,41 @@
+<html>
+  <link rel="stylesheet" type="text/css" href="index.css">
+  <title>Vector Math</title>
+  <body onload="onLoad()" onresize="onResize()">
+    <canvas id="canvas">
+    <script type="text/javascript" src="RD.js"></script>
+    <script>
+      canvasCheck();
+      canvasSize(window.innerWidth,window.innerHeight);
+      var resolution = 25;
+
+      function update(){
+        for(i = 0; i < objects.length; i++){
+          if(mousePoint.x > objects[i].center.x - objects[i].radius && mousePoint.x < objects[i].center.x + objects[i].radius && mousePoint.y > objects[i].center.y - objects[i].radius && mousePoint.y < objects[i].center.y + objects[i].radius){
+            objects[i].colour = "red";
+          }else{
+            objects[i].colour = "black";
+          }
+        }
+      }
+
+      function onLoad(){
+        generateGrid();
+      }
+
+      function onResize(){
+        canvasSize(window.innerWidth,window.innerHeight);
+      }
+
+      function generateGrid(){
+        for(var x = 0; x < Math.floor(window.innerWidth/resolution)+1; x++){
+          for(var y = 0; y < Math.floor(window.innerHeight/resolution)+1; y++){
+            new Rect(new Point(x*resolution,y*resolution),resolution,resolution,"black","stroke");
+          }
+        }
+      }
+
+
+    </script>
+  </body>
+</html>

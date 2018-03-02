@@ -1,0 +1,82 @@
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title id="Title">Audio Adventure</title>
+  <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+  <center><div class="BigTitle">Web Sound API Tests - Rohan Dewan</div>
+  <br>
+  Frequency:
+  <input type="number" min="1" max="500" class="numberInput" value="250" id="frequencyNumber">
+  <br>
+  Offset:
+  <input type="number" min="-20" max="20" class="numberInput" value="0" id="offsetNumber">
+  <br>
+  Gain:
+  <input type="number" min="0" max="1" class="numberInput" value=".05" step="0.01" id="gainNumber">
+  <br>
+  Detune:
+  <input type="number" min="0" max="1" class="numberInput" value="0" step="0.01" id="detuneNumber">
+  <canvas id="analyserCanvas" class="analyserCanvas"></canvas>
+
+  <script>
+
+
+    var audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    var gainNode = audioContext.createGain();
+    var analyser = audioContext.createAnalyser();
+    var analyserCanvas = document.getElementById("analyserCanvas");
+    var analyserContext = analyserCanvas.getContext("2d");
+
+    analyserCanvas.width = window.innerWidth;
+
+
+    var oscillator1 = audioContext.createOscillator();
+    var oscillator2 = audioContext.createOscillator();
+
+    oscillator1.type = 'sine';
+    oscillator2.type = 'sine';
+
+    oscillator1.frequency.value = 250;
+    oscillator2.frequency.value = 0;
+
+    gainNode.gain.value = 0.05;
+
+    oscillator1.connect(audioContext.destination);
+    oscillator2.connect(audioContext.destination);
+
+    gainNode.connect(audioContext.destination);
+
+    oscillator1.start();
+    oscillator2.start();
+
+    function setFrequency(newFrequency) {
+      oscillator1.frequency.value = newFrequency;
+    }
+
+    function setOffset(newOffset) {
+      oscillator2.frequency.value = oscillator1.frequency.value + offsetNumber.value;
+    }
+
+    frequencyNumber.oninput = function() {
+      setFrequency(frequencyNumber.value);
+    }
+
+    offsetNumber.oninput = function() {
+      setOffset(offsetNumber.value);
+    }
+
+    gainNumber.oninput = function() {
+      gainNode.gain.value = gainNumber.value;
+    }
+
+    detuneNumber.oninput = function() {
+      oscillator1.detune.value = detuneNumber.value;
+    }
+
+</script>
+
+</body>
+</html>

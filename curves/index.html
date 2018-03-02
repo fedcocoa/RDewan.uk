@@ -1,0 +1,164 @@
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title id="Title">Curves - Rohan Dewan</title>
+  <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body onresize="onResize()" onload="onResize()">
+  <p class="About">Click to make points. First is starting, second is anchor and third is end. Click to edit a point and click to place.</p>
+  <canvas id="canvas" class="canvas" onclick="mouseClick(event)" onmousemove="mouseMove(event)">
+  <script>
+    class point {
+      constructor(x,y,curveid){
+          this.x = x;
+          this.y = y;
+          this.curveid = curveid;
+      }
+    }
+
+    class curve {
+      constructor(start,anchor,end) {
+        this.start = start;
+        this.anchor = anchor;
+        this.end = end;
+      }
+    }
+
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    var curves = [];
+    var tempStart = new point();
+    var tempAnchor = new point();
+    var tempEnd = new point();
+    var tempCurve = new curve();
+    var curveColour = "rgb(255,25,100)";
+    var pointColour = "rgb(25,255,90)";
+    var cursorColour = "rgb(100,100,100)";
+    var mousePoint = new point();
+    var dragging = false;
+
+    function onResize() {
+      clearCanvas();
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      redraw(curves);
+    }
+
+    function mouseClick(event) {
+      if(dragging) {
+        dragging = false;
+      }else if(overPoint(event)){
+        dragging = true;
+        dragPoint = overPoint(event);
+        console.log(dragPoint);
+      }else{
+        if(tempStart.x == null) {
+          tempStart.x = event.clientX;
+          tempStart.y = event.clientY;
+          tempStart.curveid = curves.length;
+          tempCurve = new curve(tempStart,tempAnchor,tempEnd);
+          curves.push(tempCurve);
+          drawPoint(tempStart,pointColour);
+        } else {
+          if(tempAnchor.x == null) {
+            tempAnchor.x = event.clientX;
+            tempAnchor.y = event.clientY;
+            tempAnchor.curveid = curves.length-1;
+            curves[curves.length-1].anchor = tempAnchor;
+            drawPoint(tempAnchor,pointColour);
+          } else {
+            tempEnd.x = event.clientX;
+            tempEnd.y = event.clientY;
+            tempEnd.curveid = curves.length-1;
+            curves[curves.length-1].end = tempEnd;
+
+            drawPoint(tempEnd,pointColour);
+            drawCurve(tempCurve,curveColour);
+
+            tempStart = new point();
+            tempAnchor = new point();
+            tempEnd = new point();
+            tempCurve = new curve();
+          }
+        }
+      }
+
+    }
+
+    function mouseMove(event) {
+      if(dragging){
+        if(curves[dragPoint.curveid].start == dragPoint) {
+          curves[dragPoint.curveid].start.x = event.clientX;
+          curves[dragPoint.curveid].start.y = event.clientY;
+        }
+        if(curves[dragPoint.curveid].anchor == dragPoint) {
+          curves[dragPoint.curveid].anchor.x = event.clientX;
+          curves[dragPoint.curveid].anchor.y = event.clientY;
+        }
+        if(curves[dragPoint.curveid].end == dragPoint) {
+          curves[dragPoint.curveid].end.x = event.clientX;
+          curves[dragPoint.curveid].end.y = event.clientY;
+        }
+      }
+      clearCanvas();
+      mousePoint.x = event.clientX;
+      mousePoint.y = event.clientY;
+      drawPoint(mousePoint,cursorColour);
+      redraw(curves);
+    }
+
+    function drawCurve(curve,colour) {
+      ctx.beginPath();
+      ctx.lineWidth = 5;
+      ctx.moveTo(curve.start.x,curve.start.y);
+      ctx.quadraticCurveTo(curve.anchor.x,curve.anchor.y,curve.end.x,curve.end.y);
+      ctx.strokeStyle = colour;
+      ctx.stroke();
+    }
+
+    function drawPoint(point,colour) {
+      ctx.beginPath();
+      ctx.arc(point.x,point.y,10,0,Math.PI * 2);
+      ctx.fillStyle = colour;
+      ctx.fill();
+    }
+
+    function redraw(curves) {
+      for(var i = 0; i != curves.length; i++) {
+        drawCurve(curves[i],curveColour);
+      }
+      for(var i = 0; i != curves.length; i++) {
+        drawPoint(curves[i].start,pointColour);
+        drawPoint(curves[i].anchor,pointColour);
+        drawPoint(curves[i].end,pointColour);
+      }
+    }
+
+    function overPoint(event) {
+      var comparePoint;
+      var curveid;
+      for(var x = 0; x != curves.length; x++){
+        for(var y = 0; y < 3; y++) {
+          if(y == 0) {
+            comparePoint = curves[x].start;
+          }else if (y == 1) {
+            comparePoint = curves[x].anchor;
+          }else {
+            comparePoint = curves[x].end;
+          }
+          if(event.clientX > comparePoint.x - 10 && event.clientX < comparePoint.x + 10 && event.clientY > comparePoint.y - 10 && event.clientY < comparePoint.y + 10){
+            return comparePoint;
+            ctx.fillStyle = "rgb(244, 220, 66)";
+          }
+        }
+      }
+    }
+
+    function clearCanvas() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+    }
+
+</script>
+</body>
+</html>

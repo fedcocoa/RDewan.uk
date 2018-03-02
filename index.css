@@ -1,0 +1,68 @@
+body {
+  font-size: 5.5vw;
+  font-family: 'Nunito', sans-serif;
+  margin: 0px;
+  color: #00486E;
+}
+
+.canvas {
+  background-color: white;
+}
+
+.bigTitle {
+  position: absolute;
+  margin: 0px;
+  top: 1vh;
+  left: 18vw;
+}
+
+.sign {
+  position: absolute;
+  top: 40vh;
+  left: 60vw;
+  transform: rotate(7deg);
+}
+
+.arrow {
+  position: absolute;
+  top: 42vh;
+  left:55vw;
+  width: 20%;
+  transform: rotate(7deg);
+}
+
+.link {
+  text-decoration: none;
+  position: absolute;
+  color: #00486E;
+}
+
+.link1 {
+  top: 15vh;
+  left: 2vw;
+}
+
+.link2 {
+  top: 27vh;
+  left: 2vw;
+}
+
+.link3 {
+  top: 39vh;
+  left: 2vw;
+}
+
+.link4 {
+  top: 51vh;
+  left: 2vw;
+}
+
+.link5 {
+  top: 63vh;
+  left: 2vw;
+}
+
+.link6 {
+  top: 75vh;
+  left: 2vw;
+}

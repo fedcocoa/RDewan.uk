@@ -1,0 +1,64 @@
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title id="Title">RDewan.uk - Mouse Audio</title>
+  <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body onresize="onResize()" onload="onResize()">
+  <h1 class="bigTitle">Mouse Audio</h1>
+  <h2 class="aboutText">Move your mouse to change the colour and frequency of the oscillator.</h2>
+  <canvas class="canvas" id="canvas">
+  <script>
+
+    class Point {
+    constructor(x,y){
+      if(x == null) {
+        this.x = 0;
+      } else {
+        this.x = x;
+      }
+      if(y == null) {
+        this.y = 0;
+      } else {
+        this.y = y;
+        }
+      }
+    }
+
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    var audioctx = new AudioContext();
+    var osc = audioctx.createOscillator();
+    var gainNode = audioctx.createGain();
+    osc.connect(gainNode);
+    gainNode.connect(audioctx.destination);
+    gainNode.gain.value = .03;
+    osc.start();
+    var mousePoint = new Point();
+
+    setInterval(update,10);
+
+    window.addEventListener('mousemove',function(event){
+      mousePoint.x = event.clientX;
+      mousePoint.y = event.clientY;
+    });
+
+    function onResize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    function update() {
+      cs();
+      osc.frequency.value = mousePoint.x+mousePoint.y;
+      ctx.fillStyle = "rgb(" + (mousePoint.x).toString() + "," + (mousePoint.y).toString() + "," + (mousePoint.x+mousePoint.y).toString() + ")";
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+      console.log(osc.frequency.value);
+    }
+
+    function cs() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+body {
+  font-size: 5vw;
+  font-family: 'Nunito', sans-serif;
+  margin: 0px;
+  color: black;
+}
+
+.bigTitle {
+  position: absolute;
+  margin: 0px;
+  top: 1vh;
+  left: 18vw;
+}
+
+.canvas {
+  background-color: white;
+}

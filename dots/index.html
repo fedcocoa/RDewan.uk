@@ -1,0 +1,52 @@
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title id="Title">Drawing Adventure</title>
+  <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+  <canvas id="canvas" class="canvas" onmousedown="placePoint(event)">
+  <script>
+    var canvas = document.getElementById("canvas");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    var ctx = canvas.getContext("2d");
+    var pointX = [];
+    var pointY = [];
+
+  	function placePoint(event) {
+
+      if(event.clientX != pointX[pointX.length-1] && event.clientY != pointY[pointY.length-1]){
+        pointX.push(event.clientX);
+        pointY.push(event.clientY);
+        console.log(pointX);
+        console.log(pointY);
+
+        if(pointX.length > 1) {
+          ctx.lineWidth = 2;
+          ctx.strokeStyle = "#000000";
+          ctx.beginPath();
+          ctx.moveTo(pointX[pointX.length-2],pointY[pointY.length-2]);
+          ctx.lineTo(pointX[pointX.length-1],pointY[pointY.length-1]);
+          ctx.stroke();
+        }
+
+        ctx.strokeStyle = "#FF7838";
+    	  ctx.beginPath();
+    	  ctx.arc(event.clientX,event.clientY ,5,0,Math.PI * 2,true);
+        ctx.fillStyle = "#8FD1FE";
+        ctx.fill();
+        ctx.lineWidth = 2;
+    	  ctx.stroke();
+
+    	}
+    }
+
+    function clearScreen() {
+      ctx.clearRect(0,0,window.innerWidth,window.innerHeight);
+    }
+
+</script>
+</body>
+</html>

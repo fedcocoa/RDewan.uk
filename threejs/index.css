@@ -1,0 +1,42 @@
+body {
+  background-color: white;
+  font-size: 25px;
+  font-family: 'Nunito', sans-serif;
+  margin: 0px;
+}
+
+.BigTitle {
+  font-size: 200%;
+}
+
+.numberInput {
+  background-color: transparent;
+  border-color: transparent;
+  font-family: 'Nunito', sans-serif;
+  font-size: 25px;
+}
+
+.canvas {
+  margin: 0px;
+  padding: 0px;
+
+}
+
+.controls {
+  border: 2px;
+  border-color: black;
+  border-style: solid;
+  padding: 5px;
+  background-color: transparent;
+  font-size: 25px;
+  font-family: 'Nunito', sans-serif;
+  border-radius: 3px;
+}
+
+.controls {
+  border: 2px;
+  border-color: black;
+  border-style: solid;
+  padding: 5px;
+  background-color: transparent;
+}

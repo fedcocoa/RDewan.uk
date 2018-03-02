@@ -1,0 +1,22 @@
+body {
+  font-size: 3vw;
+  font-family: 'Nunito', sans-serif;
+  margin: 0px;
+  color: black;
+}
+
+.bigTitle {
+  font-size: 10vw;
+  position: absolute;
+  margin: 0px;
+  top: 30vh;
+  left: 18vw;
+}
+
+.aboutText {
+  font-size: 1.8vw;
+  position: absolute;
+  margin: 0px;
+  top: 52vh;
+  left: 20vw;
+}

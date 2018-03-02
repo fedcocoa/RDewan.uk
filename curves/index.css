@@ -1,0 +1,19 @@
+body {
+  background-color: black;
+  font-size: 25px;
+  font-family: 'Nunito', sans-serif;
+  margin: 0px;
+}
+
+.canvas {
+  margin: 0px;
+  padding: 0px;
+
+}
+
+.About {
+  position: absolute;
+  color: white;
+  font-family: 'Nunito', sans-serif;
+  font-size: 15px;
+}

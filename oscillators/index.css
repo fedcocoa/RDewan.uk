@@ -1,0 +1,23 @@
+body {
+  font-size: 25px;
+  background-color: #FFC4C4;
+  font-family: 'Nunito', sans-serif;
+  margin: 0px;
+}
+
+.BigTitle {
+  font-size: 50px;
+}
+
+.numberInput {
+  background-color: transparent;
+  border-color: transparent;
+  font-family: 'Nunito', sans-serif;
+  font-size: 25px;
+}
+
+.analyserCanvas {
+  margin: 0px;
+
+
+}

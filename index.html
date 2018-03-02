@@ -1,0 +1,69 @@
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title id="Title">RDewan.uk</title>
+  <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body onresize="onResize()" onload="onResize()">
+  <center>
+    <p class="bigTitle">RDewan.uk - Rohan Dewan</p>
+    <a href="\curves\" class="link1 link">Quadratic Bezier Curves</a>
+    <a href="\dots\" class="link2 link">Connecting Dots</a>
+    <a href="\threejs\" class="link3 link">Three.js Tests</a>
+    <a href="\oscillators\" class="link4 link">Oscillator (broken)</a>
+    <a href="\mouseaudio\" class="link5 link">Mouse Audio</a>
+    <a href="\sorting\" class="link6 link">Sorting</a>
+    <div class="sign">Click On them!</div>
+    <img src="arrow.png" class="arrow">
+  </center>
+  <canvas class="canvas" id="canvas">
+  <script>
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    var circleColour = "black";
+    var xspace = 35;
+    var yspace = xspace;
+    var width = 100;
+    var height = width;
+
+    window.addEventListener('mousemove',function(event){
+      animate(event);
+    });
+
+    function onResize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    function animate(event) {
+      cs();
+      createPointGrid(event);
+    }
+
+    function createPointGrid(event) {
+      var radius = 10;
+      var distance;
+      for(var x = 0; x != Math.round(canvas.width/xspace); x++) {
+        for(var y = 0; y != Math.round(canvas.height/yspace); y++) {
+          distance = checkDistance(event,(xspace*x+(xspace/2)),(yspace*y+(yspace/2)));
+          ctx.beginPath();
+          ctx.strokeStyle = circleColour;
+          ctx.lineWidth = 1;
+          ctx.arc(xspace*x+(xspace/2),yspace*y+(yspace/2),3+(distance/100),0,Math.PI * 2);
+          ctx.stroke();
+        }
+      }
+    }
+
+    function checkDistance(event,x,y) {
+      return Math.sqrt(((event.clientX-x)**2)+((event.clientY-y)**2));
+    }
+
+    function cs() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+    }
+
+  </script>
+</body>
+</html>

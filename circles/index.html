@@ -1,0 +1,65 @@
+<html>
+<title id="Title">RDewan.uk - Circles</title>
+<link rel="stylesheet" type="text/css" href="index.css">
+<body onresize="onResize()" onload="onResize()">
+  <canvas class="canvas" id="canvas">
+  <script>
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    var circles = [];
+    var baseRadius = 10;
+
+    setInterval(update,10);
+    setInterval(placeCircle,60);
+
+    class Circle {
+      constructor(x,y,r,c) {
+        this.x = x;
+        this.y = y;
+        this.r = r;
+        this.c = c || "white";
+        circles.push(this);
+      }
+    }
+
+    function onResize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    function cs() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+    }
+
+    function dist(x1,y1,x2,y2) {
+      return Math.sqrt(((x2-x1)**2)+((y2-y1)**2));
+    }
+
+    function drawCircle(circle) {
+      ctx.strokeStyle = circle.c;
+      ctx.beginPath();
+      ctx.arc(circle.x,circle.y,circle.r,0,Math.PI*2);
+      ctx.stroke();
+    }
+
+    function draw() {
+      for(var i = 0; i < circles.length; i++) {
+        drawCircle(circles[i]);
+      }
+    }
+
+    function start() {
+      onResize();
+    }
+
+    function update() {
+      cs();
+      updateRadius();
+      draw();
+    }
+
+    start();
+
+  </script>
+</body>
+</html>

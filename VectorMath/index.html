@@ -9,15 +9,7 @@
       canvasSize(window.innerWidth,window.innerHeight);
       var resolution = 25;
 
-      function update(){
-        for(i = 0; i < objects.length; i++){
-          if(mousePoint.x > objects[i].center.x - objects[i].radius && mousePoint.x < objects[i].center.x + objects[i].radius && mousePoint.y > objects[i].center.y - objects[i].radius && mousePoint.y < objects[i].center.y + objects[i].radius){
-            objects[i].colour = "red";
-          }else{
-            objects[i].colour = "black";
-          }
-        }
-      }
+      circle = new Circle(new Point(12*resolution,12*resolution),.2*resolution,"red","fill");
 
       function onLoad(){
         generateGrid();
@@ -29,9 +21,10 @@
 
       function generateGrid(){
         for(var x = 0; x < Math.floor(window.innerWidth/resolution)+1; x++){
-          for(var y = 0; y < Math.floor(window.innerHeight/resolution)+1; y++){
-            new Rect(new Point(x*resolution,y*resolution),resolution,resolution,"black","stroke");
-          }
+          new Line(new Point(x*resolution,0),new Point(x*resolution,canvas.height),.5,"black");
+        }
+        for(var y = 0; y < Math.floor(window.innerHeight/resolution)+1; y++){
+          new Line(new Point(0,y*resolution),new Point(canvas.width,y*resolution),.5,"black");
         }
       }
 

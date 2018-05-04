@@ -1,23 +1,28 @@
 <html>
   <link rel="stylesheet" type="text/css" href="index.css">
   <title>Triangles - Rohan Dewan</title>
-  <body>
+  <body onresize="resize()">
     <canvas id="canvas">
     <script type="text/javascript" src="RD.js"></script>
     <script>
       canvasCheck();
       canvasSize(window.innerWidth,window.innerHeight);
 
-      var radius = 20;
-      var width = 15;
+      function resize() {
+        canvasSize(window.innerWidth,window.innerHeight);
+
+      }
+
+      var radius = 10;
+      var width = 10;
 
       var angleA = 90;
       var angleB = 45;
       var angleC = 45;
 
-      var pointA = new Point(canvas.width/4,canvas.height/2);
-      var pointB = new Point(canvas.width/3*2,canvas.height/2);
-      var pointC = new Point(canvas.width/4,canvas.height/5);
+      var pointA = new Point(canvas.width/4,canvas.height/2+50);
+      var pointB = new Point(canvas.width/3*2,canvas.height/2+50);
+      var pointC = new Point(canvas.width/4,canvas.height/5+50);
 
       var A = new Line(pointA,pointB,width,"#EDE162");
       var B = new Line(pointB,pointC,width,"#628FED");
@@ -27,9 +32,9 @@
       var b = new Circle(pointB,radius,"#ED6F62","fill");
       var c = new Circle(pointC,radius,"#B6ED62","fill");
 
-      var aText = new Text("a:"+angleA.toString(),a.center);
-      var bText = new Text("b:"+angleB.toString(),b.center);
-      var cText = new Text("c:"+angleC.toString(),c.center);
+      var aText = new Text(angleA,a.center);
+      var bText = new Text(angleB,b.center);
+      var cText = new Text(angleC,c.center);
 
 
     </script>

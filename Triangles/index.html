@@ -7,22 +7,35 @@
     <script>
       canvasCheck();
       canvasSize(window.innerWidth,window.innerHeight);
+      setFont(30,"sans-serif");
 
       function resize() {
         canvasSize(window.innerWidth,window.innerHeight);
-
+        pointA.x = canvas.width/4;
+        pointA.y = canvas.height/2+100;
+        pointB.x = canvas.width/3*2;
+        pointB.y = canvas.height/2+100;
+        pointC.x = canvas.width/4;
+        pointC.y = canvas.height/5;
+        lengthA = Math.round(distance(pointB,pointC));
+        lengthB = Math.round(distance(pointA,pointC));
+        lengthC = Math.round(distance(pointA,pointB));
       }
 
       var radius = 10;
       var width = 10;
 
-      var angleA = 90;
-      var angleB = 45;
-      var angleC = 45;
+      var angleA = "A";
+      var angleB = "B";
+      var angleC = "C";
 
-      var pointA = new Point(canvas.width/4,canvas.height/2+50);
-      var pointB = new Point(canvas.width/3*2,canvas.height/2+50);
-      var pointC = new Point(canvas.width/4,canvas.height/5+50);
+      var pointA = new Point(canvas.width/4,canvas.height/2+100);
+      var pointB = new Point(canvas.width/3*2,canvas.height/2+100);
+      var pointC = new Point(canvas.width/4,canvas.height/5);
+
+      var lengthA = Math.round(distance(pointB,pointC));
+      var lengthB = Math.round(distance(pointA,pointC));
+      var lengthC = Math.round(distance(pointA,pointB));
 
       var A = new Line(pointA,pointB,width,"#EDE162");
       var B = new Line(pointB,pointC,width,"#628FED");
@@ -35,6 +48,10 @@
       var aText = new Text(angleA,a.center);
       var bText = new Text(angleB,b.center);
       var cText = new Text(angleC,c.center);
+
+      var AText = new Text("a "+lengthA,midPoint(pointB,pointC));
+      var BText = new Text("b "+lengthB,midPoint(pointA,pointC));
+      var CText = new Text("c "+lengthC,midPoint(pointB,pointA));
 
 
     </script>

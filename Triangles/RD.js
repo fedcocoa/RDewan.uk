@@ -11,7 +11,6 @@ console.log("RD.js Library made by Rohan Dewan");
 var canvas;
 var ctx;
 var objects = [];
-var TextFont = "50px sans-serif";
 
 
 setInterval(draw,60);
@@ -27,8 +26,6 @@ class Point {
     this.y = y || 0;
   }
 }
-
-var mousePoint = new Point();
 
 class Vector {
   constructor(x,y) {
@@ -103,6 +100,20 @@ class Text {
   }
 }
 
+var mousePoint = new Point();
+
+function distance(a,b) {
+  return Math.sqrt((a.x-b.x)**2+(a.y-b.y)**2);
+}
+
+function midPoint(a,b) {
+  return new Point((a.x+b.x)/2,(a.y+b.y)/2);
+}
+
+function setFont(size,serif) {
+  ctx.font = size.toString() + "px " + serif.toString();
+}
+
 function canvasCheck() {
   if(document.getElementById("canvas") == null) {
     console.log("No canvas with 'canvas' id. Creating one.")
@@ -153,7 +164,6 @@ function drawRect(rect) {
 }
 
 function drawText(text) {
-  ctx.font = TextFont;
   ctx.fillStyle = text.colour;
   ctx.fillText(text.string,text.center.x,text.center.y);
 }

@@ -5,6 +5,9 @@
     <canvas id="canvas">
     <script type="text/javascript" src="RD.js"></script>
     <script>
+
+      var radian = 180/Math.PI;
+
       canvasCheck();
       canvasSize(window.innerWidth,window.innerHeight);
       setFont(30,"sans-serif");
@@ -14,11 +17,11 @@
         lengthA = Math.round(distance(pointB,pointC));
         lengthB = Math.round(distance(pointA,pointC));
         lengthC = Math.round(distance(pointA,pointB));
-        AText.string = "a "+lengthA;
+        AText.string = lengthA;
         AText.center = midPoint(pointB,pointC);
-        BText.string = "b "+lengthB;
+        BText.string = lengthB;
         BText.center = midPoint(pointA,pointC);
-        CText.string = "c "+lengthC;
+        CText.string = lengthC;
         CText.center = midPoint(pointB,pointA);
         setFont(canvas.height/35,"sans-serif");
       }
@@ -32,32 +35,31 @@
         pointC.y = canvas.height*Math.random();
       }
 
-      setInterval(calcAngles,30);
-      setInterval(update,20);
-
       function update() {
         lengthA = Math.round(distance(pointB,pointC));
         lengthB = Math.round(distance(pointA,pointC));
         lengthC = Math.round(distance(pointA,pointB));
-        AText.string = "A "+lengthA;
+        AText.string = lengthA;
         AText.center = midPoint(pointB,pointC);
-        BText.string = "B "+lengthB;
+        BText.string = lengthB;
         BText.center = midPoint(pointA,pointC);
-        CText.string = "C "+lengthC;
+        CText.string = lengthC;
         CText.center = midPoint(pointB,pointA);
         calcAngles();
       }
 
-
       function calcAngles() {
-        angleA = Math.round(Math.acos(((lengthB**2)+(lengthC**2)-(lengthA**2))/(2*lengthB*lengthC))*57.296);
-        angleB = Math.round(Math.acos(((lengthA**2)+(lengthC**2)-(lengthB**2))/(2*lengthA*lengthC))*57.296);
-        angleC = Math.round(Math.acos(((lengthA**2)+(lengthB**2)-(lengthC**2))/(2*lengthA*lengthB))*57.296);
-        aText.string = "a " + angleA;
-        bText.string = "b " + angleB;
-        cText.string = "c " + angleC;
+        angleA = Math.round(Math.acos(((lengthB**2)+(lengthC**2)-(lengthA**2))/(2*lengthB*lengthC))*radian);
+        angleB = Math.round(Math.acos(((lengthA**2)+(lengthC**2)-(lengthB**2))/(2*lengthA*lengthC))*radian);
+        angleC = Math.round(Math.acos(((lengthA**2)+(lengthB**2)-(lengthC**2))/(2*lengthA*lengthB))*radian);
+        aText.string = angleA;
+        bText.string = angleB;
+        cText.string = angleC;
       }
 
+
+      setInterval(calcAngles,30);
+      setInterval(update,20);
       setFont(canvas.height/35,"sans-serif");
       var radius = 10;
       var width = 8;

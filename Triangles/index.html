@@ -2,14 +2,45 @@
   <link rel="stylesheet" type="text/css" href="index.css">
   <title>Triangles - Rohan Dewan</title>
   <body onresize="resize()">
-    <canvas id="canvas">
+    <canvas id="canvas" onclick="click()">
     <script type="text/javascript" src="RD.js"></script>
     <script>
-
-      var radian = 180/Math.PI;
-
       canvasCheck();
       canvasSize(window.innerWidth,window.innerHeight);
+
+      var radian = 180/Math.PI;
+      var radius = 10;
+      var width = 8;
+
+      var angleA = 0;
+      var angleB = 0;
+      var angleC = 0;
+
+      var pointA = new Point(canvas.width/4,canvas.height/2+100);
+      var pointB = new Point(canvas.width/3*2,canvas.height/2+100);
+      var pointC = new Point(canvas.width/4,canvas.height/5);
+
+      var lengthA = Math.round(distance(pointB,pointC)/10);
+      var lengthB = Math.round(distance(pointA,pointC)/10);
+      var lengthC = Math.round(distance(pointA,pointB)/10);
+
+      var A = new Line(pointB,pointC,width,"#EDE162");
+      var B = new Line(pointA,pointC,width,"#628FED");
+      var C = new Line(pointB,pointA,width,"#ED6298");
+
+      var a = new Circle(pointA,radius,"#EDB462","fill");
+      var b = new Circle(pointB,radius,"#ED6F62","fill");
+      var c = new Circle(pointC,radius,"#B6ED62","fill");
+
+      var aText = new Text(angleA,a.center);
+      var bText = new Text(angleB,b.center);
+      var cText = new Text(angleC,c.center);
+
+      var AText = new Text("A "+lengthA,midPoint(pointB,pointC));
+      var BText = new Text("B "+lengthB,midPoint(pointA,pointC));
+      var CText = new Text("C "+lengthC,midPoint(pointB,pointA));
+
+
       setFont(30,"sans-serif");
 
       function resize() {
@@ -39,11 +70,11 @@
         lengthA = Math.round(distance(pointB,pointC));
         lengthB = Math.round(distance(pointA,pointC));
         lengthC = Math.round(distance(pointA,pointB));
-        AText.string = lengthA;
+        AText.string = "A";
         AText.center = midPoint(pointB,pointC);
-        BText.string = lengthB;
+        BText.string = "B";
         BText.center = midPoint(pointA,pointC);
-        CText.string = lengthC;
+        CText.string = "C";
         CText.center = midPoint(pointB,pointA);
         calcAngles();
       }
@@ -57,43 +88,42 @@
         cText.string = angleC;
       }
 
-
-      setInterval(calcAngles,30);
-      setInterval(update,20);
+      setInterval(calcAngles,1);
+      setInterval(update,1);
       setFont(canvas.height/35,"sans-serif");
-      var radius = 10;
-      var width = 8;
-
-      var angleA = 90;
-      var angleB = 0;
-      var angleC = 0;
-
-      var pointA = new Point(canvas.width/4,canvas.height/2+100);
-      var pointB = new Point(canvas.width/3*2,canvas.height/2+100);
-      var pointC = new Point(canvas.width/4,canvas.height/5);
-
-      var lengthA = Math.round(distance(pointB,pointC)/10);
-      var lengthB = Math.round(distance(pointA,pointC)/10);
-      var lengthC = Math.round(distance(pointA,pointB)/10);
-
-      var A = new Line(pointA,pointB,width,"#EDE162");
-      var B = new Line(pointB,pointC,width,"#628FED");
-      var C = new Line(pointC,pointA,width,"#ED6298");
-
-      var a = new Circle(pointA,radius,"#EDB462","fill");
-      var b = new Circle(pointB,radius,"#ED6F62","fill");
-      var c = new Circle(pointC,radius,"#B6ED62","fill");
-
-      var aText = new Text(angleA,a.center);
-      var bText = new Text(angleB,b.center);
-      var cText = new Text(angleC,c.center);
-
-      var AText = new Text("A "+lengthA,midPoint(pointB,pointC));
-      var BText = new Text("B "+lengthB,midPoint(pointA,pointC));
-      var CText = new Text("C "+lengthC,midPoint(pointB,pointA));
 
       randomise();
 
+      setInterval(onPoint,1);
+
+      var dragging = false;
+      console.log(dragging);
+      var dragPoint;
+
+      function onPoint() {
+        if(distance(mousePoint,a.center) < radius) {
+          pointA.x = mousePoint.x;
+          pointA.y = mousePoint.y;
+        }
+        if(distance(mousePoint,b.center) < radius) {
+          pointB.x = mousePoint.x;
+          pointB.y = mousePoint.y;
+        }
+        if(distance(mousePoint,c.center) < radius) {
+          pointC.x = mousePoint.x;
+          pointC.y = mousePoint.y;
+        }
+      }
+
+      function click() {
+        console.log(dragging);
+        if(dragging) {
+          dragging = false;
+        }else {
+          dragging = true;
+        }
+
+      }
     </script>
   </body>
 </html>

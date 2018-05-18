@@ -11,9 +11,9 @@ console.log("RD.js Library made by Rohan Dewan");
 var canvas;
 var ctx;
 var objects = [];
+var drawRate = 1;
 
-
-setInterval(draw,60);
+setInterval(draw,drawRate);
 
 addEventListener("mousemove",function(event){
   mousePoint.x = event.clientX
@@ -67,6 +67,10 @@ class Line {
     this.start.y += vector.y;
     this.end.x += vector.x;
     this.end.y += vector.y;
+  }
+  update(start,end) {
+    this.start = start;
+    this.end = end;
   }
 }
 

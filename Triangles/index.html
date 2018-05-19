@@ -1,12 +1,17 @@
 <html>
   <link rel="stylesheet" type="text/css" href="index.css">
   <title>Triangles - Rohan Dewan</title>
-  <body onresize="resize()">
-    <canvas id="canvas" onclick="click()">
+  <body onresize="resize()"  onclick="click()">
+    <canvas id="canvas">
     <script type="text/javascript" src="RD.js"></script>
     <script>
       canvasCheck();
       canvasSize(window.innerWidth,window.innerHeight);
+
+      setInterval(calcAngles,1);
+      setInterval(update,1);
+      setInterval(onPoint,1);
+      setFont(canvas.height/35,"sans-serif");
 
       var radian = 180/Math.PI;
       var radius = 10;
@@ -20,9 +25,9 @@
       var pointB = new Point(canvas.width/3*2,canvas.height/2+100);
       var pointC = new Point(canvas.width/4,canvas.height/5);
 
-      var lengthA = Math.round(distance(pointB,pointC)/10);
-      var lengthB = Math.round(distance(pointA,pointC)/10);
-      var lengthC = Math.round(distance(pointA,pointB)/10);
+      var lengthA = Math.round(Point.distance(pointB,pointC)/10);
+      var lengthB = Math.round(Point.distance(pointA,pointC)/10);
+      var lengthC = Math.round(Point.distance(pointA,pointB)/10);
 
       var A = new Line(pointB,pointC,width,"#EDE162");
       var B = new Line(pointA,pointC,width,"#628FED");
@@ -36,24 +41,24 @@
       var bText = new Text(angleB,b.center);
       var cText = new Text(angleC,c.center);
 
-      var AText = new Text("A "+lengthA,midPoint(pointB,pointC));
-      var BText = new Text("B "+lengthB,midPoint(pointA,pointC));
-      var CText = new Text("C "+lengthC,midPoint(pointB,pointA));
+      var AText = new Text("A "+lengthA,Point.midPoint(pointB,pointC));
+      var BText = new Text("B "+lengthB,Point.midPoint(pointA,pointC));
+      var CText = new Text("C "+lengthC,Point.midPoint(pointB,pointA));
 
 
       setFont(30,"sans-serif");
 
       function resize() {
         canvasSize(window.innerWidth,window.innerHeight);
-        lengthA = Math.round(distance(pointB,pointC));
-        lengthB = Math.round(distance(pointA,pointC));
-        lengthC = Math.round(distance(pointA,pointB));
+        lengthA = Math.round(Point.distance(pointB,pointC));
+        lengthB = Math.round(Point.distance(pointA,pointC));
+        lengthC = Math.round(Point.distance(pointA,pointB));
         AText.string = lengthA;
-        AText.center = midPoint(pointB,pointC);
+        AText.center = Point.midPoint(pointB,pointC);
         BText.string = lengthB;
-        BText.center = midPoint(pointA,pointC);
+        BText.center = Point.midPoint(pointA,pointC);
         CText.string = lengthC;
-        CText.center = midPoint(pointB,pointA);
+        CText.center = Point.midPoint(pointB,pointA);
         setFont(canvas.height/35,"sans-serif");
       }
 
@@ -67,15 +72,15 @@
       }
 
       function update() {
-        lengthA = Math.round(distance(pointB,pointC));
-        lengthB = Math.round(distance(pointA,pointC));
-        lengthC = Math.round(distance(pointA,pointB));
+        lengthA = Math.round(Point.distance(pointB,pointC));
+        lengthB = Math.round(Point.distance(pointA,pointC));
+        lengthC = Math.round(Point.distance(pointA,pointB));
         AText.string = "A";
-        AText.center = midPoint(pointB,pointC);
+        AText.center = Point.midPoint(pointB,pointC);
         BText.string = "B";
-        BText.center = midPoint(pointA,pointC);
+        BText.center = Point.midPoint(pointA,pointC);
         CText.string = "C";
-        CText.center = midPoint(pointB,pointA);
+        CText.center = Point.midPoint(pointB,pointA);
         calcAngles();
       }
 
@@ -88,28 +93,26 @@
         cText.string = angleC;
       }
 
-      setInterval(calcAngles,1);
-      setInterval(update,1);
-      setFont(canvas.height/35,"sans-serif");
-
       randomise();
 
-      setInterval(onPoint,1);
+      addEventListener("onclick",function() {
+        console.log("hell");
+      });
 
       var dragging = false;
       console.log(dragging);
       var dragPoint;
 
       function onPoint() {
-        if(distance(mousePoint,a.center) < radius) {
+        if(Point.distance(mousePoint,a.center) < radius) {
           pointA.x = mousePoint.x;
           pointA.y = mousePoint.y;
         }
-        if(distance(mousePoint,b.center) < radius) {
+        if(Point.distance(mousePoint,b.center) < radius) {
           pointB.x = mousePoint.x;
           pointB.y = mousePoint.y;
         }
-        if(distance(mousePoint,c.center) < radius) {
+        if(Point.distance(mousePoint,c.center) < radius) {
           pointC.x = mousePoint.x;
           pointC.y = mousePoint.y;
         }

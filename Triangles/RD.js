@@ -25,12 +25,19 @@ class Point {
     this.x = x || 0;
     this.y = y || 0;
   }
-}
-
-class Vector {
-  constructor(x,y) {
-    this.x = x || 0;
-    this.y = y || 0;
+  static updateXY(x,y) {
+    this.x = x;
+    this.y = y;
+  }
+  static updatePoint(a) {
+    this.x = a.x;
+    this.y = a.y;
+  }
+  static distance(a,b) {
+    return Math.sqrt((a.x-b.x)**2+(a.y-b.y)**2);
+  }
+  static midPoint(a,b) {
+    return new Point((a.x+b.x)/2,(a.y+b.y)/2);
   }
 }
 
@@ -45,10 +52,6 @@ class Circle {
   draw(){
     drawCircle(this);
   }
-  addVector(vector) {
-    this.center.x += vector.x;
-    this.center.y += vector.y;
-  }
 }
 
 class Line {
@@ -61,12 +64,6 @@ class Line {
   }
   draw() {
     drawLine(this);
-  }
-  addVector(vector) {
-    this.start.x += vector.x;
-    this.start.y += vector.y;
-    this.end.x += vector.x;
-    this.end.y += vector.y;
   }
   update(start,end) {
     this.start = start;
@@ -86,10 +83,6 @@ class Rect {
   draw() {
     drawRect(this);
   }
-  addVector(vector) {
-    this.start.x += vector.x;
-    this.start.y += vector.y;
-  }
 }
 
 class Text {
@@ -105,14 +98,6 @@ class Text {
 }
 
 var mousePoint = new Point();
-
-function distance(a,b) {
-  return Math.sqrt((a.x-b.x)**2+(a.y-b.y)**2);
-}
-
-function midPoint(a,b) {
-  return new Point((a.x+b.x)/2,(a.y+b.y)/2);
-}
 
 function setFont(size,serif) {
   ctx.font = size.toString() + "px " + serif.toString();

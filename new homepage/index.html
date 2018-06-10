@@ -1,0 +1,26 @@
+<html> <!-- This shows the start of the HTML tag. -->
+  <link rel="stylesheet" type="text/css" href="index.css"> <!-- Links the CSS (Cascading Style Sheet) file to the HTML for styling. -->
+  <title>RD.js - Blank Template</title> <!-- This sets the text in the tab on your web browser. Change the text inbetween the > and the < to see the change. -->
+  <body>
+    <canvas id="canvas"> <!-- Creates the canvas we will draw onto. -->
+    <script type="text/javascript" src="RD.js"></script> <!-- This links the RD.js library to the HTML file. -->
+    <script> // creates and starts the JavaScript script. This is where you will put your JavaScript code.
+      canvasCheck(); // Checks the HTML file for a canvas and makes sure you can use the canvas.
+      canvasSize(window.innerWidth,window.innerHeight);
+      setFont("25","sans-serif");
+      topLeft = new Line(new Point(0,0),mousePoint,2,"red");
+      topRight = new Line(new Point(canvas.width,0),mousePoint,2,"green");
+      botLeft = new Line(new Point(0,canvas.height),mousePoint,2,"blue");
+      botRight = new Line(new Point(canvas.width,canvas.height),mousePoint,2,"yellow");
+      mouseText = new Text(("x "+ mousePoint.x + " y " + mousePoint.y),mousePoint,"black");
+
+      setInterval(updateText,1);
+
+      function updateText() {
+        mouseText.string = ("x "+ mousePoint.x + " y " + mousePoint.y);
+      }
+
+
+    </script> <!-- Closing the script -->
+  </body>
+</html> <!-- Closing

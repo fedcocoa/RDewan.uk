@@ -14,8 +14,12 @@
       setFont(canvas.height/35,"sans-serif");
 
       var radian = 180/Math.PI;
-      var radius = 10;
-      var width = 8;
+      var radius = 15;
+      var width = 10;
+
+      var acolor = "#FFC300";
+      var bcolor = "#FF5733";
+      var ccolor = "#C70039";
 
       var angleA = 0;
       var angleB = 0;
@@ -29,13 +33,13 @@
       var lengthB = Math.round(Point.distance(pointA,pointC)/10);
       var lengthC = Math.round(Point.distance(pointA,pointB)/10);
 
-      var A = new Line(pointB,pointC,width,"#EDE162");
-      var B = new Line(pointA,pointC,width,"#628FED");
-      var C = new Line(pointB,pointA,width,"#ED6298");
+      var A = new Line(pointB,pointC,width,acolor);
+      var B = new Line(pointA,pointC,width,bcolor);
+      var C = new Line(pointB,pointA,width,ccolor);
 
-      var a = new Circle(pointA,radius,"#EDB462","fill");
-      var b = new Circle(pointB,radius,"#ED6F62","fill");
-      var c = new Circle(pointC,radius,"#B6ED62","fill");
+      var a = new Circle(pointA,radius,acolor,"fill");
+      var b = new Circle(pointB,radius,bcolor,"fill");
+      var c = new Circle(pointC,radius,ccolor,"fill");
 
       var aText = new Text(angleA,a.center);
       var bText = new Text(angleB,b.center);

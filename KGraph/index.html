@@ -8,7 +8,7 @@
       canvasCheck();
       canvasSize(window.innerWidth,window.innerHeight);
 
-      var nodes = 4;
+      var nodes = 10;
       var nodeArray = [];
       var pairArray = [];
       var arcArray = [];
@@ -22,16 +22,15 @@
       //create pairs
       for(var x = 0; x != nodes; x++) {
         for(var y = 0; y != nodes; y++) {
-          if(!pairArray.includes(Pair(nodeArray[x],nodeArray[y])) && nodeArray[x] != nodeArray[y]) {
-            pairArray.push(new Pair(nodeArray[x],nodeArray[y]));
-          }
+          var pair = new Pair(nodeArray[x],nodeArray[y]);
+          arcArray.push(new Line(pair.a.center,pair.b.center,2,"black"));
         }
       }
 
       //create arcs
-      for(var i = 0; i < nCk(nodes,2); i++) {
-        arcArray.push(new Line(pairArray[i].a.center,pairArray[i].b.center,2,"black"));
-      }
+      // for(var i = 0; i < nCr(nodes,2); i++) {
+      //   arcArray.push(new Line(pairArray[i].a.center,pairArray[i].b.center,2,"black"));
+      // }
 
     </script>
   </body>

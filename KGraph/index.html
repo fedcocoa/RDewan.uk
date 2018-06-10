@@ -1,0 +1,38 @@
+<html>
+  <link rel="stylesheet" type="text/css" href="index.css">
+  <title>RD.js - K Graphs</title>
+  <body>
+    <canvas id="canvas">
+    <script type="text/javascript" src="RD.js"></script>
+    <script>
+      canvasCheck();
+      canvasSize(window.innerWidth,window.innerHeight);
+
+      var nodes = 4;
+      var nodeArray = [];
+      var pairArray = [];
+      var arcArray = [];
+
+      //create nodes
+      for(var i = 0; i < nodes; i++) {
+        console.log("New Node");
+        nodeArray.push(new Circle(new Point(canvas.width*Math.random(),canvas.height*Math.random()),10,"black","fill"));
+      }
+
+      //create pairs
+      for(var x = 0; x != nodes; x++) {
+        for(var y = 0; y != nodes; y++) {
+          if(!pairArray.includes(Pair(nodeArray[x],nodeArray[y])) && nodeArray[x] != nodeArray[y]) {
+            pairArray.push(new Pair(nodeArray[x],nodeArray[y]));
+          }
+        }
+      }
+
+      //create arcs
+      for(var i = 0; i < nCk(nodes,2); i++) {
+        arcArray.push(new Line(pairArray[i].a.center,pairArray[i].b.center,2,"black"));
+      }
+
+    </script>
+  </body>
+</html>

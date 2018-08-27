@@ -8,29 +8,25 @@
       canvasCheck();
       canvasSize(window.innerWidth,window.innerHeight);
 
-      var nodes = 10;
+      addEventListener("click",addNode);
+
       var nodeArray = [];
-      var pairArray = [];
-      var arcArray = [];
 
-      //create nodes
-      for(var i = 0; i < nodes; i++) {
-        console.log("New Node");
-        nodeArray.push(new Circle(new Point(canvas.width*Math.random(),canvas.height*Math.random()),10,"black","fill"));
-      }
-
-      //create pairs
-      for(var x = 0; x != nodes; x++) {
-        for(var y = 0; y != nodes; y++) {
-          var pair = new Pair(nodeArray[x],nodeArray[y]);
-          arcArray.push(new Line(pair.a.center,pair.b.center,2,"black"));
-        }
+      let tempCircle;
+      //create node
+      function addNode() {
+        tempCircle = new Circle(new Point(mousePoint.x,mousePoint.y),10,RGBStr(Math.random()*255,Math.random()*255,Math.random()*255),"fill");
+        connect(tempCircle);
+        nodeArray.push(tempCircle);
       }
 
       //create arcs
-      // for(var i = 0; i < nCr(nodes,2); i++) {
-      //   arcArray.push(new Line(pairArray[i].a.center,pairArray[i].b.center,2,"black"));
-      // }
+      function connect(node) {
+        console.log("connect");
+        for(var i = 0; i != nodeArray.length; i++) {
+          new Line(node.center,nodeArray[i].center,2,"aqua");
+        }
+      }
 
     </script>
   </body>

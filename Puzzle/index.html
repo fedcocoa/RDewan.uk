@@ -6,37 +6,54 @@
     <script type="text/javascript" src="RD.js"></script>
     <script>
       canvasCheck();
+
       if(window.innerHeight > window.innerWidth) {
         canvasSize(window.innerWidth,window.innerWidth);
       }else {
         canvasSize(window.innerHeight,window.innerHeight);
       }
 
-      let size = 150;
+      let gridSize = 5;
       let pieces = [];
-      let pieceSize = 5;
-      let offset = 0;
-      let pieceColour = "rgb(74, 131, 120)";
+      let pieceSize = 100;
+      let offset = 10;
+      let colourOne = "#932F2D";
+      let colourTwo = "#C94C50";
 
-      for(let x = 0; x != size; x++) {
-        for(let y = 0; y != size; y++) {
-          let tempPiece = new Rect(new Point(offset+x*canvas.width/size,offset+y*canvas.width/size),pieceSize,pieceSize,RGBStr(x*y*.03,y*.6+80,x*2+100),"fill");
-          pieces.push(tempPiece);
+
+      function GenerateGrid() {
+        pieceSize = (canvas.width-offset*2)/gridSize;
+        for(let x = 0; x != gridSize; x++) {
+          let tempRow = [];
+          for(let y = 0; y != gridSize; y++) {
+            let tempPiece = new Rect(new Point(x*canvas.width/gridSize,y*canvas.width/gridSize),pieceSize,pieceSize,"black","fill");
+            tempRow.push(tempPiece);
+          }
+          pieces.push(tempRow);
         }
       }
 
-      let factor = 1;
-
-      function changeColour() {
-        for(var i = 0; i != pieces.length; i++) {
-          currentPiece = pieces[i];
-          currentPiece.colour = RGBStr(currentPiece.x*currentPiece.y*factor,currentPiece.y*factor,currentPiece.x*factor);
+      GenerateGrid();
+  
+      function checkerboard() {
+        let white = false; 
+        for(let x = 0; x != gridSize; x++) {
+          let currentRow = pieces[x];
+          for(let y = 0; y != gridSize; y++) {
+            if(white) {
+              currentRow[y].colour = colourOne;
+              white = false;
+            } else {
+              currentRow[y].colour = colourTwo;
+              white = true;
+            }
+            console.log(white);
+          }
         }
-        factor++;
       }
       
-      setInterval(changeColour,100);
-      
+      checkerboard();
+
     </script>
   </body>
 </html>

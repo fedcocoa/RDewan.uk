@@ -1,0 +1,46 @@
+<html>
+  <link rel="stylesheet" type="text/css" href="index.css">
+  <title>RD.js - Blank Template</title>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script type="text/javascript" src="RD.js"></script>
+    <script>
+      canvasCheck();
+      if(window.innerWidth > window.innerHeight) {
+          canvasSize(window.innerHeight,window.innerHeight);
+      } else {
+          canvasSize(window.innerWidth,window.innerWidth);
+      }
+
+      let scale = 20;
+      let nodes = [];
+      let arcs = [];
+      let circleColour = "#c157ef";
+      let arcColour = "#ffb487";
+      let arcWidth = 5;
+      let circleRadius = 2;
+      let steps = 1000;
+
+      //generate nodes
+      for(var x = 0; x < canvas.width/scale; x++) {
+          let column = [];
+          for(var y = 0; y < canvas.height/scale; y++) {
+              column.push(new Circle(new Point(x*scale,y*scale),circleRadius,circleColour,"fill"));
+          }
+          nodes.push(column);
+      }
+
+      let currentRow = 0;
+      let currentColumn = 0;
+      for(var i = 0; i !== steps; i++) {
+          let column = Math.round(Math.random());
+          let row = Math.round(Math.random());
+          arcs.push(new Line(nodes[currentColumn][currentRow].center,nodes[currentColumn+column][currentRow+row].center,arcWidth,arcColour));
+          currentRow += row;
+          currentColumn += column;
+      }
+
+
+    </script>
+  </body>
+</html>

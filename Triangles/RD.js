@@ -7,12 +7,11 @@
 
 console.log("RD.js Library made by Rohan Dewan");
 
-let canvas;
-let ctx;
-let objects = [];
-let drawRate = 1;
+var canvas;
+var ctx;
+var drawRate = 1;
 
-setInterval(draw,drawRate);
+setInterval(clearCanvas,drawRate);
 
 addEventListener("mousemove",function(event){
   mousePoint.x = event.clientX;
@@ -41,29 +40,39 @@ class Point {
 }
 
 class Circle {
+
   constructor(Center,r,c,sf) {
     this.center = Center || new Point(0,0);
     this.radius = r || 10;
     this.colour = c || "black";
     this.sf = sf || "fill";
-    objects.push(this);
+    this.hidden = false;
+    setInterval(this.draw,drawRate);
   }
   draw(){
-    drawCircle(this);
+      if(!this.hidden) {
+          drawCircle(this);
+      }
   }
 }
 
 class Line {
+
   constructor(Start,End,w,c) {
     this.start = Start || new Point(0,0);
     this.end = End || new Point(0,0);
     this.width = w || 1;
     this.colour = c || "white";
-    objects.push(this);
+    this.hidden = false;
+    setInterval(this.draw,drawRate);
   }
+
   draw() {
-    drawLine(this);
+      if(!this.hidden) {
+          drawLine(this);
+      }
   }
+
   update(start,end) {
     this.start = start;
     this.end = end;
@@ -71,16 +80,20 @@ class Line {
 }
 
 class Rect {
+
   constructor(Start,Width,Height,Colour,sf) {
     this.start = Start || new Point(0,0);
     this.width = Width || 0;
     this.height = Height || 0;
     this.colour = Colour || "white";
     this.sf = sf || "fill";
-    objects.push(this);
+    this.hidden = false;s
+    setInterval(this.draw,drawRate);
   }
   draw() {
-    drawRect(this);
+      if(!this.hidden) {
+          drawRect(this);
+      }
   }
 }
 
@@ -89,26 +102,17 @@ class Text {
     this.string = string || "Hello World!";
     this.center = center || new Point(0,0);
     this.colour = colour || "black";
-    objects.push(this);
+    this.hidden = false;
+    setInterval(this.draw,drawRate);
   }
   draw() {
-    drawText(this);
+      if(!this.hidden) {
+          drawText(this);
+      }
   }
 }
 
-class Pair {
-  constructor(a,b) {
-    if(a > b) {
-      this.a = a;
-      this.b = b;
-    }else {
-      this.a = b;
-      this.b = a;
-    }
-  }
-}
-
-let mousePoint = new Point();
+var mousePoint = new Point();
 
 function setFont(size,serif) {
   ctx.font = size.toString() + "px " + serif.toString();
@@ -172,17 +176,6 @@ function clearCanvas() {
   ctx.clearRect(0,0,canvas.width,canvas.height);
 }
 
-function draw() {
-  clearCanvas();
-  drawObjects();
-}
-
-function drawObjects() {
-  for(let i = 0; i < objects.length; i++) {
-    objects[i].draw();
-  }
-}
-
 function RGBStr(r,g,b) {
   return "rgb(" + r.toString() + "," + g.toString() + "," + b.toString() + ")";
 }
@@ -192,12 +185,12 @@ function RGBAStr(r,g,b,a) {
 }
 
 function nCr(n,r) {
-  let top = 1;
-  let bot = 1;
-  for(let i=0; i != r; i++) {
+  var top = 1;
+  var bot = 1;
+  for(var i=0; i != r; i++) {
     top *= (n-i);
   }
-  for(let i=1; i !=r+1; i++) {
+  for(var i=1; i !=r+1; i++) {
     bot *= i;
   }
   return top/bot;

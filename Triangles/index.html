@@ -17,9 +17,11 @@
       var radius = 15;
       var width = 10;
 
-      var acolor = "#FFC300";
-      var bcolor = "#FF5733";
-      var ccolor = "#C70039";
+      var acolor;
+      var bcolor;
+      var ccolor;
+
+      colourScheme("#932F2D","#C94C50","#7A5B5C","#EFDFDA");
 
       var angleA = 0;
       var angleB = 0;
@@ -52,16 +54,20 @@
 
       setFont(30,"sans-serif");
 
+      function colourScheme(c1,c2,c3,c4) {
+        acolor = c1;
+        bcolor = c2;
+        ccolor = c3;
+        canvas.style.backgroundColor = c4;
+      }
+
       function resize() {
         canvasSize(window.innerWidth,window.innerHeight);
         lengthA = Math.round(Point.distance(pointB,pointC));
         lengthB = Math.round(Point.distance(pointA,pointC));
         lengthC = Math.round(Point.distance(pointA,pointB));
-        AText.string = lengthA;
         AText.center = Point.midPoint(pointB,pointC);
-        BText.string = lengthB;
         BText.center = Point.midPoint(pointA,pointC);
-        CText.string = lengthC;
         CText.center = Point.midPoint(pointB,pointA);
         setFont(canvas.height/35,"sans-serif");
       }

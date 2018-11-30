@@ -53,6 +53,12 @@
                 this.items = this.merge(nodes,this.items);
             }
 
+            pop() {
+                let returnNode = this.items[0];
+                this.items[0] = null;
+                this.items = this.removeNulls(this.items);
+                return returnNode;
+            }
         }
 
         class Arc {
@@ -85,6 +91,20 @@
             constructor() {
                 this.arcs = [];
                 this.nodes = {};
+                this.size = 0;
+            }
+
+            getArc(a,b) {
+                for(let i = 0; i <= this.arcs.length-1; i++) {
+                    if(this.arcs[i].start == a && this.arcs[i].finish == b) {
+                        return this.arcs[i];
+                        break;
+                    }
+                    if(this.arcs[i].start == b && this.arcs[i].finish == a) {
+                        return this.arcs[i];
+                        break;
+                    }
+                }
             }
 
             getNeighbours(node) {
@@ -112,6 +132,7 @@
 
             addNode(node) {
                 this.nodes[node.name] = node;
+                this.size++;
             }
 
         }
@@ -143,6 +164,25 @@
         graph.addArc(new Arc(graph.nodes["C"], graph.nodes["H"], 3));
         graph.addArc(new Arc(graph.nodes["E"], graph.nodes["H"], 3));
         graph.setStart(graph.nodes["A"]);
+
+
+        function dijkstra(startNode) {
+            let visitedNodes = [];
+            let currentNode = startNode;
+            while(visitedNodes.length != graph.size ) {
+                queue.enQueue(graph.getNeighbours(currentNode));
+                visitedNodes[visitedNodes.length] = currentNode;
+                for(let i = 0; i < queue.items.length-1; i++) {
+                    console.log(currentNode);
+                    if(queue.items[i].value > graph.getArc(currentNode,queue.items[i]).value + currentNode.value) {
+                        queue.items[i].updateValue(graph.getArc(currentNode,queue.items[i]).value + currentNode.value);
+                    }
+
+                }
+                currentNode = queue.pop();
+            }
+
+        }
 
     </script>
 </body>

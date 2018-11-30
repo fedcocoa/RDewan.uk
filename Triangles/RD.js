@@ -9,10 +9,9 @@ console.log("RD.js Library made by Rohan Dewan");
 
 var canvas;
 var ctx;
-var objects = [];
 var drawRate = 1;
 
-setInterval(draw,drawRate);
+setInterval(clearCanvas,drawRate);
 
 addEventListener("mousemove",function(event){
   mousePoint.x = event.clientX;
@@ -41,29 +40,39 @@ class Point {
 }
 
 class Circle {
+
   constructor(Center,r,c,sf) {
     this.center = Center || new Point(0,0);
     this.radius = r || 10;
     this.colour = c || "black";
     this.sf = sf || "fill";
-    objects.push(this);
+    this.hidden = false;
+    setInterval(this.draw,drawRate);
   }
   draw(){
-    drawCircle(this);
+      if(!this.hidden) {
+          drawCircle(this);
+      }
   }
 }
 
 class Line {
+
   constructor(Start,End,w,c) {
     this.start = Start || new Point(0,0);
     this.end = End || new Point(0,0);
     this.width = w || 1;
     this.colour = c || "white";
-    objects.push(this);
+    this.hidden = false;
+    setInterval(this.draw,drawRate);
   }
+
   draw() {
-    drawLine(this);
+      if(!this.hidden) {
+          drawLine(this);
+      }
   }
+
   update(start,end) {
     this.start = start;
     this.end = end;
@@ -71,16 +80,20 @@ class Line {
 }
 
 class Rect {
+
   constructor(Start,Width,Height,Colour,sf) {
     this.start = Start || new Point(0,0);
     this.width = Width || 0;
     this.height = Height || 0;
     this.colour = Colour || "white";
     this.sf = sf || "fill";
-    objects.push(this);
+    this.hidden = false;s
+    setInterval(this.draw,drawRate);
   }
   draw() {
-    drawRect(this);
+      if(!this.hidden) {
+          drawRect(this);
+      }
   }
 }
 
@@ -89,22 +102,13 @@ class Text {
     this.string = string || "Hello World!";
     this.center = center || new Point(0,0);
     this.colour = colour || "black";
-    objects.push(this);
+    this.hidden = false;
+    setInterval(this.draw,drawRate);
   }
   draw() {
-    drawText(this);
-  }
-}
-
-class Pair {
-  constructor(a,b) {
-    if(a > b) {
-      this.a = a;
-      this.b = b;
-    }else {
-      this.a = b;
-      this.b = a;
-    }
+      if(!this.hidden) {
+          drawText(this);
+      }
   }
 }
 
@@ -170,17 +174,6 @@ function drawText(text) {
 
 function clearCanvas() {
   ctx.clearRect(0,0,canvas.width,canvas.height);
-}
-
-function draw() {
-  clearCanvas();
-  drawObjects();
-}
-
-function drawObjects() {
-  for(var i = 0; i < objects.length; i++) {
-    objects[i].draw();
-  }
 }
 
 function RGBStr(r,g,b) {

@@ -7,10 +7,10 @@
 
 console.log("RD.js Library made by Rohan Dewan");
 
-let canvas;
-let ctx;
-let objects = [];
-let drawRate = 1;
+var canvas;
+var ctx;
+var objects = [];
+var drawRate = 1;
 
 setInterval(draw,drawRate);
 
@@ -108,7 +108,7 @@ class Pair {
   }
 }
 
-let mousePoint = new Point();
+var mousePoint = new Point();
 
 function setFont(size,serif) {
   ctx.font = size.toString() + "px " + serif.toString();
@@ -178,7 +178,7 @@ function draw() {
 }
 
 function drawObjects() {
-  for(let i = 0; i < objects.length; i++) {
+  for(var i = 0; i < objects.length; i++) {
     objects[i].draw();
   }
 }
@@ -192,12 +192,12 @@ function RGBAStr(r,g,b,a) {
 }
 
 function nCr(n,r) {
-  let top = 1;
-  let bot = 1;
-  for(let i=0; i != r; i++) {
+  var top = 1;
+  var bot = 1;
+  for(var i=0; i != r; i++) {
     top *= (n-i);
   }
-  for(let i=1; i !=r+1; i++) {
+  for(var i=1; i !=r+1; i++) {
     bot *= i;
   }
   return top/bot;

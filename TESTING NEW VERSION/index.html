@@ -1,0 +1,18 @@
+<html>
+  <link rel="stylesheet" type="text/css" href="index.css">
+  <title>Triangles - Rohan Dewan</title>
+  <body onresize="resize()"  onclick="click()">
+  <canvas id="canvas"></canvas>
+    <script type="text/javascript" src="RD.js"></script>
+    <script>
+      canvasCheck();
+      canvasSize(window.innerWidth,window.innerHeight);
+
+      circle = new Circle(new Point(),20,"black","fill");
+      setInterval(function () {
+          drawCircle(circle);
+      },1);
+
+    </script>
+  </body>
+</html>

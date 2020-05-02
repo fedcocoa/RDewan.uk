@@ -44,7 +44,7 @@
             enQueue(nodes) {
                 for(let x = 0; x <= nodes.length-1; x++) {
                     for(let y = 0; y <= this.items.length-1; y++) {
-                        if(nodes[x] == this.items[y]) {
+                        if(nodes[x] === this.items[y]) {
                             this.items[y] = null;
                         }
                     }
@@ -96,13 +96,11 @@
 
             getArc(a,b) {
                 for(let i = 0; i <= this.arcs.length-1; i++) {
-                    if(this.arcs[i].start == a && this.arcs[i].finish == b) {
+                    if(this.arcs[i].start === a && this.arcs[i].finish === b) {
                         return this.arcs[i];
-                        break;
                     }
-                    if(this.arcs[i].start == b && this.arcs[i].finish == a) {
+                    if(this.arcs[i].start === b && this.arcs[i].finish === a) {
                         return this.arcs[i];
-                        break;
                     }
                 }
             }
@@ -110,10 +108,10 @@
             getNeighbours(node) {
                 let neighbours = [];
                 for(let i = 0; i <= this.arcs.length-1; i++) {
-                    if(this.arcs[i].start == node) {
+                    if(this.arcs[i].start === node) {
                         neighbours[neighbours.length] = this.arcs[i].finish;
                     }
-                    if(this.arcs[i].finish == node) {
+                    if(this.arcs[i].finish === node) {
                         neighbours[neighbours.length] = this.arcs[i].start;
                     }
                 }
@@ -139,50 +137,41 @@
 
         let graph = new Graph();
         let queue = new PriorityQueue();
-        graph.addNode(new Node("A", new Point(100, 50)));
-        graph.addNode(new Node("B", new Point(100, 300)));
-        graph.addNode(new Node("C", new Point(600, 50)));
-        graph.addNode(new Node("D", new Point(400, 500)));
-        graph.addNode(new Node("E", new Point(350, 200)));
-        graph.addNode(new Node("F", new Point(600, 500)));
-        graph.addNode(new Node("G", new Point(350, 300)));
-        graph.addNode(new Node("H", new Point(350, 125)));
-        graph.addArc(new Arc(graph.nodes["A"], graph.nodes["B"], 5));
-        graph.addArc(new Arc(graph.nodes["B"], graph.nodes["D"], 7));
-        graph.addArc(new Arc(graph.nodes["C"], graph.nodes["E"], 10));
-        graph.addArc(new Arc(graph.nodes["D"], graph.nodes["F"], 12));
-        graph.addArc(new Arc(graph.nodes["E"], graph.nodes["A"], 3));
-        graph.addArc(new Arc(graph.nodes["E"], graph.nodes["B"], 6));
-        graph.addArc(new Arc(graph.nodes["A"], graph.nodes["C"], 4));
-        //graph.addArc(new Arc(graph.nodes["D"], graph.nodes["E"], 11));
-        graph.addArc(new Arc(graph.nodes["C"], graph.nodes["F"], 15));
-        graph.addArc(new Arc(graph.nodes["C"], graph.nodes["D"], 8));
-        graph.addArc(new Arc(graph.nodes["C"], graph.nodes["G"], 5));
-        graph.addArc(new Arc(graph.nodes["B"], graph.nodes["G"], 9));
-        graph.addArc(new Arc(graph.nodes["D"], graph.nodes["G"], 6));
-        graph.addArc(new Arc(graph.nodes["A"], graph.nodes["H"], 7));
-        graph.addArc(new Arc(graph.nodes["C"], graph.nodes["H"], 3));
-        graph.addArc(new Arc(graph.nodes["E"], graph.nodes["H"], 3));
+        graph.addNode(new Node("A", new Point(100, 350)));
+        graph.addNode(new Node("B", new Point(350, 100)));
+        graph.addNode(new Node("C", new Point(450, 150)));
+        graph.addNode(new Node("D", new Point(300, 350)));
+        graph.addNode(new Node("E", new Point(500, 350)));
+        graph.addArc(new Arc(graph.nodes["A"], graph.nodes["D"], 3));
+        graph.addArc(new Arc(graph.nodes["A"], graph.nodes["B"], 7));
+        graph.addArc(new Arc(graph.nodes["D"], graph.nodes["B"], 2));
+        graph.addArc(new Arc(graph.nodes["D"], graph.nodes["C"], 4));
+        graph.addArc(new Arc(graph.nodes["B"], graph.nodes["E"], 6));
+        graph.addArc(new Arc(graph.nodes["D"], graph.nodes["E"], 7));
+        graph.addArc(new Arc(graph.nodes["B"], graph.nodes["C"], 3));
+        graph.addArc(new Arc(graph.nodes["C"], graph.nodes["E"], 1));
+
         graph.setStart(graph.nodes["A"]);
 
 
         function dijkstra(startNode) {
             let visitedNodes = [];
             let currentNode = startNode;
-            while(visitedNodes.length != graph.size ) {
-                queue.enQueue(graph.getNeighbours(currentNode));
+            while(visitedNodes.length != graph.size) {
                 visitedNodes[visitedNodes.length] = currentNode;
+                console.log(visitedNodes);
+                queue.enQueue(graph.getNeighbours(currentNode));
                 for(let i = 0; i < queue.items.length-1; i++) {
-                    console.log(currentNode);
                     if(queue.items[i].value > graph.getArc(currentNode,queue.items[i]).value + currentNode.value) {
                         queue.items[i].updateValue(graph.getArc(currentNode,queue.items[i]).value + currentNode.value);
                     }
-
                 }
                 currentNode = queue.pop();
             }
-
         }
+
+        dijkstra(graph.startNode);
+
 
     </script>
 </body>
